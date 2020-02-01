@@ -1,0 +1,20 @@
+ext {
+    // Koin
+    koin_version = '2.0.1'
+
+    // Uniflow
+    uniflow_version = "0.9.5"
+
+    // Support Libs
+    support_lib_version = '1.1.0'
+
+    // Android sdk and tools
+    android_plugin_version = '3.5.3'
+
+    // Material
+    material_version = '1.2.0-alpha04'
+
+    // AndroidX support
+    core_version = '1.1.0'
+    constraint_layout_version = '1.1.3'
+}
