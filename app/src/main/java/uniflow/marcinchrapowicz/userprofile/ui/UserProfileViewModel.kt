@@ -1,20 +1,21 @@
 package uniflow.marcinchrapowicz.userprofile.ui
 
 import io.uniflow.androidx.flow.AndroidDataFlow
-import io.uniflow.core.flow.UIState
 import io.uniflow.core.flow.fromState
 import uniflow.marcinchrapowicz.domain.usecase.GetUser
 import uniflow.marcinchrapowicz.domain.usecase.GetUserException
 
-class UserProfileViewModel(private val getUser: GetUser, private val getUserException: GetUserException) : AndroidDataFlow() {
+class UserProfileViewModel(
+    private val getUser: GetUser,
+    private val getUserException: GetUserException
+) : AndroidDataFlow() {
 
     init {
-        setState { UIState.Loading }
+        setState { sendEvent(UserProfileEvent.Loading) }
     }
 
     fun getUserWithException(userId: String) = setState(
         {
-            sendEvent(UserProfileEvent.Loading)
             getUserException(userId).toState { it.mapToUserState() }
         },
         {
