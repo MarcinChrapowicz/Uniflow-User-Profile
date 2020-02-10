@@ -36,6 +36,7 @@ dependencies {
 
     // AndroidX
     implementation "androidx.appcompat:appcompat:$support_lib_version"
+    implementation "androidx.arch.core:core-testing:$android_arch_version"
 
     // Material
     implementation "com.google.android.material:material:$material_version"
@@ -43,6 +44,12 @@ dependencies {
     // Uniflow
     implementation "io.uniflow:uniflow-androidx:$uniflow_version"
     implementation "io.uniflow:uniflow-saferesult:$uniflow_version"
+    implementation "io.uniflow:uniflow-core:$uniflow_version"
+    testImplementation "io.uniflow:uniflow-test:$uniflow_version"
+    testImplementation "io.uniflow:uniflow-androidx-test:$uniflow_version"
+
+    // Mockk
+    implementation "io.mockk:mockk:$mockk_version"
 
     // Koin
     implementation "org.koin:koin-core:$koin_version"

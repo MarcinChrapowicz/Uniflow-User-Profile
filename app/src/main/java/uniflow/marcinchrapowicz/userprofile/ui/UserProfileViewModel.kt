@@ -23,10 +23,15 @@ class UserProfileViewModel(
         }
     )
 
-    fun getUser(userId: String) = setState {
-        sendEvent(UserProfileEvent.Loading)
-        getUser.invoke(userId).toState { it.mapToUserState() }
-    }
+    fun getUser(userId: String) = setState({
+        getUser.invoke(userId).toState {
+            it.mapToUserState()
+        }
+    },
+        {
+            sendEvent(UserProfileEvent.RetryFragment(userId))
+        }
+    )
 
     fun updateUserInformation(name: String, email: String, mobile: String) = fromState<UserProfileState> {
         UserProfileState(name, email, mobile)

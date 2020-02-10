@@ -14,7 +14,11 @@ ext {
     // Material
     material_version = '1.2.0-alpha04'
 
+    // Mock
+    mockk_version = '1.9.3'
+
     // AndroidX support
     core_version = '1.1.0'
+    android_arch_version = '2.1.0'
     constraint_layout_version = '1.1.3'
 }
