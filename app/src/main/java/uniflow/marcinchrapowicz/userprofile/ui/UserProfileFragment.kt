@@ -46,11 +46,11 @@ class UserProfileFragment : Fragment() {
         }
 
         user_profile_open_email.setOnClickListener {
-            viewModel.openEmailActivity()
+            viewModel.openEmail()
         }
 
         user_profile_open_mobile.setOnClickListener {
-            viewModel.openMobileNumberActivity()
+            viewModel.openMobileNumber()
         }
     }
 }

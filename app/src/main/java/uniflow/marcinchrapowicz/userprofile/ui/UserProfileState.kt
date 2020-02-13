@@ -10,9 +10,9 @@ data class UserProfileState(
 ) : UIState()
 
 sealed class UserProfileEvent : UIEvent() {
-    data class RetryFragment(val userId: String) : UserProfileEvent()
+    data class RetryView(val userId: String) : UserProfileEvent()
 
     object Loading : UserProfileEvent()
-    object OpenEmailActivity : UserProfileEvent()
-    object OpenMobileNumberActivity : UserProfileEvent()
+    object OpenEmail : UserProfileEvent()
+    object OpenMobileNumber : UserProfileEvent()
 }

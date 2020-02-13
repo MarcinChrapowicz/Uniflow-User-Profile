@@ -29,9 +29,9 @@ class UserProfileActivity : AppCompatActivity() {
         onEvents(viewModel){
             when(val event = it.take()) {
                 is UserProfileEvent.Loading -> openFragment<LoadingFragment>(R.id.user_profile_container)
-                is UserProfileEvent.OpenEmailActivity -> startActivity(Intent(this, EmailActivity::class.java))
-                is UserProfileEvent.OpenMobileNumberActivity -> startActivity(Intent(this, MobileNumberActivity::class.java))
-                is UserProfileEvent.RetryFragment -> {
+                is UserProfileEvent.OpenEmail -> startActivity(Intent(this, EmailActivity::class.java))
+                is UserProfileEvent.OpenMobileNumber -> startActivity(Intent(this, MobileNumberActivity::class.java))
+                is UserProfileEvent.RetryView -> {
                     openErrorFragment(R.id.user_profile_container) {
                         viewModel.getUser(event.userId)
                     }

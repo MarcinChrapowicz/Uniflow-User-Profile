@@ -1,6 +1,5 @@
 package uniflow.marcinchrapowicz.utils.navigation
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
@@ -10,8 +9,6 @@ inline fun <reified T : Fragment> FragmentActivity.openFragment(containerId: Int
         val fragment: Fragment = supportFragmentManager.findFragmentByTag(T::class.java.simpleName)
                 ?: createFragment<T>()
         commitNewFragment(fragment, containerId, addToBackStack)
-    } else {
-        Log.i("Tag", "skip openFragment - already open fragment: ${T::class}")
     }
 }
 
@@ -36,7 +33,5 @@ inline fun <reified T : Fragment> FragmentActivity.openFragment(containerId: Int
     val last = supportFragmentManager.fragments.lastOrNull()
     if (last !is T) {
         commitNewFragment(fragment, containerId, addToBackStack)
-    } else {
-        Log.i("Tag", "skip openFragment - already open fragment: ${T::class}")
     }
 }

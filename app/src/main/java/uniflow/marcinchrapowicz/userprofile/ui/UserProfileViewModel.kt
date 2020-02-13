@@ -19,17 +19,18 @@ class UserProfileViewModel(
             getUserException(userId).toState { it.mapToUserState() }
         },
         {
-            sendEvent(UserProfileEvent.RetryFragment(userId))
+            sendEvent(UserProfileEvent.RetryView(userId))
         }
     )
 
-    fun getUser(userId: String) = setState({
-        getUser.invoke(userId).toState {
-            it.mapToUserState()
-        }
-    },
+    fun getUser(userId: String) = setState(
         {
-            sendEvent(UserProfileEvent.RetryFragment(userId))
+            getUser.invoke(userId).toState {
+                it.mapToUserState()
+            }
+        },
+        {
+            sendEvent(UserProfileEvent.RetryView(userId))
         }
     )
 
@@ -37,11 +38,11 @@ class UserProfileViewModel(
         UserProfileState(name, email, mobile)
     }
 
-    fun openMobileNumberActivity() = fromState<UserProfileState> {
-        sendEvent(UserProfileEvent.OpenMobileNumberActivity)
+    fun openMobileNumber() = fromState<UserProfileState> {
+        sendEvent(UserProfileEvent.OpenMobileNumber)
     }
 
-    fun openEmailActivity() = fromState<UserProfileState> {
-        sendEvent(UserProfileEvent.OpenEmailActivity)
+    fun openEmail() = fromState<UserProfileState> {
+        sendEvent(UserProfileEvent.OpenEmail)
     }
 }
