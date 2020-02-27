@@ -21,10 +21,9 @@ import uniflow.marcinchrapowicz.domain.usecase.GetUserException
 class UserProfileViewModelTest {
 
     @get:Rule
-    var coroutineMainDispatcherRule = TestDispatchersRule()
-
+    var testDispatchersRule = TestDispatchersRule()
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val getUser: GetUser = mockk(relaxed = true)
     private val getUserException: GetUserException = mockk(relaxed = true)
