@@ -1,7 +1,7 @@
 package uniflow.marcinchrapowicz.userprofile.ui
 
-import io.uniflow.core.flow.UIEvent
-import io.uniflow.core.flow.UIState
+import io.uniflow.core.flow.data.UIEvent
+import io.uniflow.core.flow.data.UIState
 
 data class UserProfileState(
     val name: String,

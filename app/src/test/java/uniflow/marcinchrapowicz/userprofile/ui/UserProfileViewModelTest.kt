@@ -6,8 +6,10 @@ import io.mockk.mockk
 import io.mockk.verifySequence
 import io.uniflow.android.test.MockedViewObserver
 import io.uniflow.android.test.mockObservers
+import io.uniflow.core.flow.data.UIState
 import io.uniflow.core.logger.DebugMessageLogger
 import io.uniflow.core.logger.UniFlowLogger
+import io.uniflow.result.SafeResult
 import io.uniflow.result.SafeResult.Companion.success
 import io.uniflow.test.rule.TestDispatchersRule
 import org.junit.Before
@@ -46,7 +48,7 @@ class UserProfileViewModelTest {
     @Test
     fun `empty state`() {
         verifySequence {
-            view.hasEvent(UserProfileEvent.Loading)
+            view.hasState(UIState.Empty)
         }
     }
 
@@ -59,8 +61,24 @@ class UserProfileViewModelTest {
         viewModel.getUser(userId)
 
         verifySequence {
+            view.hasState(UIState.Empty)
             view.hasEvent(UserProfileEvent.Loading)
             view.hasState(user.mapToUserState())
+        }
+    }
+
+    @Test
+    fun `get user information exception`() {
+        val userId = "123"
+
+        coEvery { getUserException(userId) } returns SafeResult.failure(IllegalStateException(("message")))
+
+        viewModel.getUser(userId)
+
+        verifySequence {
+            view.hasState(UIState.Empty)
+            view.hasEvent(UserProfileEvent.Loading)
+            view.hasEvent(UserProfileEvent.RetryView("123"))
         }
     }
 
@@ -77,6 +95,7 @@ class UserProfileViewModelTest {
         viewModel.updateUserInformation(name, email, mobile)
 
         verifySequence {
+            view.hasState(UIState.Empty)
             view.hasEvent(UserProfileEvent.Loading)
             view.hasState(user.mapToUserState())
             view.hasState(user.mapToUserState().copy(name = name, email = email, mobile = mobile))
