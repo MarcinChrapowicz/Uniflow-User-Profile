@@ -10,9 +10,12 @@ class UserProfileViewModel(
     private val getUserException: GetUserException
 ) : AndroidDataFlow() {
 
+    init {
+        action { sendEvent(UserProfileEvent.Loading) }
+    }
+
     fun getUserWithException(userId: String) = action(
         onAction = {
-            sendEvent(UserProfileEvent.Loading)
             val state = getUserException(userId).toState { it.mapToUserState() }
             setState(state)
         },
@@ -23,7 +26,6 @@ class UserProfileViewModel(
 
     fun getUser(userId: String) = action(
         onAction = {
-            sendEvent(UserProfileEvent.Loading)
             val state = getUser.invoke(userId).toState { it.mapToUserState() }
             setState(state)
         },
