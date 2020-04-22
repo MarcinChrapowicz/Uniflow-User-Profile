@@ -2,6 +2,7 @@ package uniflow.marcinchrapowicz.userprofile.ui
 
 import io.uniflow.androidx.flow.AndroidDataFlow
 import io.uniflow.core.flow.actionOn
+import io.uniflow.core.flow.data.UIEvent
 import uniflow.marcinchrapowicz.domain.usecase.GetUser
 import uniflow.marcinchrapowicz.domain.usecase.GetUserException
 
@@ -19,7 +20,7 @@ class UserProfileViewModel(
             val state = getUserException(userId).toState { it.mapToUserState() }
             setState(state)
         },
-        onError = { exception, ui ->
+        onError = { exception, state ->
             sendEvent (UserProfileEvent.RetryView(userId))
         }
     )
@@ -29,14 +30,19 @@ class UserProfileViewModel(
             val state = getUser.invoke(userId).toState { it.mapToUserState() }
             setState(state)
         },
-        onError = { exception, ui ->
+        onError = { exception, state ->
             sendEvent(UserProfileEvent.RetryView(userId))
         }
     )
 
-    fun updateUserInformation(name: String, email: String, mobile: String) = actionOn<UserProfileState> {
-        setState ( UserProfileState(name, email, mobile))
-    }
+    fun updateUserInformation(name: String, email: String, mobile: String) = actionOn<UserProfileState>(
+        onAction = {
+            setState ( UserProfileState(name, email, mobile))
+        },
+        onError = { exception, state ->
+            sendEvent(UIEvent.Fail())
+        }
+    )
 
     fun openMobileNumber() = actionOn<UserProfileState> {
         sendEvent(UserProfileEvent.OpenMobileNumber)
