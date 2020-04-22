@@ -12,20 +12,20 @@ class UserProfileViewModel(
 
     fun getUserWithException(userId: String) = action(
         onAction = {
-            sendEvent { UserProfileEvent.Loading }
+            sendEvent(UserProfileEvent.Loading)
             val state = getUserException(userId).toState { it.mapToUserState() }
-            setState { state }
+            setState(state)
         },
         onError = { exception, ui ->
-            sendEvent {UserProfileEvent.RetryView(userId) }
+            sendEvent (UserProfileEvent.RetryView(userId))
         }
     )
 
     fun getUser(userId: String) = action(
         onAction = {
-            sendEvent { UserProfileEvent.Loading }
+            sendEvent(UserProfileEvent.Loading)
             val state = getUser.invoke(userId).toState { it.mapToUserState() }
-            setState { state }
+            setState(state)
         },
         onError = { exception, ui ->
             sendEvent(UserProfileEvent.RetryView(userId))
